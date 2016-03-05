@@ -2,13 +2,14 @@ base:
   "*":
     - sshd
     - vim
-  "lepp.*":
+  "vm.fe":
     - nginx
     - postgresql
     - php_fpm
+    - nodejs
     - sites.vagrant
-  "yoursitehere.com":
-    - nginx
-    - postgresql
-    - php_fpm
-    - sites.yoursitehere
+  # "yoursitehere.com":
+  #   - nginx
+  #   - postgresql
+  #   - php_fpm
+  #   - sites.yoursitehere

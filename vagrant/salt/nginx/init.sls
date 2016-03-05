@@ -9,7 +9,8 @@
 nginx:
   pkg:
     - installed
-  service.running:
+  service:
+    - running
     - enable: True
     - watch:
         - file: time-log
@@ -19,12 +20,13 @@ apache-httpd-disabled:
   service:
     - name: httpd
     - disabled
-  service:
-    - name: httpd
-    - dead
+  # service:
+  #   - name: httpd
+  #   - dead
 
 nginx-service:
-  service.running:
+  service:
+    - running
     - name: nginx
     - enable: True
     - watch:
@@ -47,4 +49,3 @@ default-nginx:
     - name: {{ sites_enabled }}/default{{ ext }}
     - require:
         - pkg: nginx
-       

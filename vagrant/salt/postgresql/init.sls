@@ -5,14 +5,14 @@
   {% set pgroot = "/var/lib/pgsql/9.2/data" %}
   {% set ssl = "false" %}
 {% elif grains['os_family'] == 'Debian' %}
-  {% set pgdata = "/var/lib/postgresql/9.1/main/" %}
-  {% set pgroot = "/etc/postgresql/9.1/main" %}
-  {% set pgver = "" %}
+  {% set pgdata = "/var/lib/postgresql/9.3/main/" %}
+  {% set pgroot = "/etc/postgresql/9.3/main" %}
+  {% set pgver = "-9.3" %}
   {% set pgservice = "" %}
-  {% set ssl = "true" %}
+  {% set ssl = "false" %}
 {% endif %}
 
-postgres:  
+postgres:
   user.present:
     - shell: /bin/bash
     - home: False
@@ -50,7 +50,7 @@ postgresql{{ pgver }}-server:
 {% if grains['os_family'] == 'Debian' %}
 postgres-stopped:
   cmd.run:
-    - name: service postgresql{{ pgservice }} stop 
+    - name: service postgresql{{ pgservice }} stop
     - unless: test -e {{ pgroot }}/recreated
     - require:
       - pkg: postgresql{{ pgver }}
@@ -74,7 +74,7 @@ postgres-init:
     {% elif grains['os_family'] == 'Debian' %}
     - require:
         - cmd: postgres-stopped
-    - name: rm -rf {{ pgdata }} {{ pgroot }} && pg_createcluster -d {{ pgdata }} --locale 'en_US.UTF-8' -e 'UTF-8' 9.1 main
+    - name: rm -rf {{ pgdata }} {{ pgroot }} && pg_createcluster -d {{ pgdata }} --locale 'en_US.UTF-8' -e 'UTF-8' 9.3 main
     - unless: test -e {{ pgroot }}/recreated
     {% endif %}
 
@@ -94,7 +94,7 @@ postgresql-service:
     - require:
       - user: postgres
       - pkg: postgresql{{ pgver }}
-      - cmd: postgres-postinit 
+      - cmd: postgres-postinit
       {% if grains['os_family'] == 'RedHat' %}
       - pkg: postgresql{{ pgver }}-server
       {% endif %}

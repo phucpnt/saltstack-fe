@@ -42,7 +42,6 @@ php_stack:
       - pkg: php{{ v }}-fpm
       - pkg: php{{ v }}-gd
       - pkg: php{{ v }}-pgsql
-      - pkg: php{{ v }}-suhosin
       - pkg: php{{ v }}{{ pecl }}-memcache
       - pkg: php{{ v }}-mcrypt
       - pkg: php{{ v }}-cli
@@ -81,10 +80,6 @@ php_gd:
 php_pgsql:
   pkg.installed:
     - name: php{{ v }}-pgsql
-
-php_suhosin:
-  pkg.installed:
-    - name: php{{ v }}-suhosin
 
 php_memcache:
   pkg.installed:
@@ -126,7 +121,7 @@ php_apc:
         fpm: {{ fpm }}
         pid: {{ pid }}
     - require:
-        - pkg: php{{ v }}-fpm 
+        - pkg: php{{ v }}-fpm
 
 {{ fpm }}/www.conf:
   file.managed:
@@ -136,7 +131,7 @@ php_apc:
     - group: root
     - mode: 644
     - require:
-      - pkg: php{{ v }}-fpm 
+      - pkg: php{{ v }}-fpm
 
 {{ apc }}/pdo_pgsql.ini:
   file.managed:

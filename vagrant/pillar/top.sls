@@ -2,6 +2,6 @@ base:
   "*":
     - sshd
     - sysctl
-  "lepp.*":
-    - pg 
+  "vm.*":
+    - pg
     - vagrant_user
