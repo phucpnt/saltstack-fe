@@ -23,10 +23,10 @@ Vagrant.configure(2) do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  config.vm.network "forwarded_port", guest: 80, host: 80
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
-  config.vm.network "forwarded_port", guest: 25, host: 25
-  config.vm.network "forwarded_port", guest: 143, host: 143
+  config.vm.network "forwarded_port", guest: 80, host: 8080
+  # config.vm.network "forwarded_port", guest: 8080, host: 8080
+  # config.vm.network "forwarded_port", guest: 25, host: 25
+  # config.vm.network "forwarded_port", guest: 143, host: 143
   config.vm.network "forwarded_port", guest: 5432, host: 5432 # postgresql
 
 
@@ -43,7 +43,7 @@ Vagrant.configure(2) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  #config.vm.synced_folder "../projects/supercrm", "/var/www/html/supercrm", owner: "apache"
+  config.vm.synced_folder "www", "/var/www"
   config.vm.synced_folder "vagrant/salt",    "/srv/salt"
   config.vm.synced_folder "vagrant/pillar",  "/srv/pillar"
 
